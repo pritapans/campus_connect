@@ -1,0 +1,3144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect — Student Events & Recognition Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           DESIGN SYSTEM — Refined Academic Dark + Gold
+           ═══════════════════════════════════════════════════════════ */
+        
+         :root {
+            --navy: #0a0f1e;
+            --navy-mid: #111827;
+            --navy-card: #161d30;
+            --navy-border: #1e2a45;
+            --gold: #e8c56a;
+            --gold-light: #f5dfa0;
+            --gold-dim: #b8962e;
+            --teal: #38bdf8;
+            --teal-dim: #0ea5e9;
+            --rose: #fb7185;
+            --green: #4ade80;
+            --amber: #fbbf24;
+            --text-1: #f1f5f9;
+            --text-2: #94a3b8;
+            --text-3: #64748b;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+            --radius: 14px;
+            --radius-sm: 8px;
+            --gold-glow: 0 0 30px rgba(232, 197, 106, 0.15);
+        }
+        
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--navy);
+            color: var(--text-1);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        /* ─── Noise texture overlay ─────────────────────────────── */
+        
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
+        }
+        
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 0 28px;
+            position: relative;
+        }
+        /* ═══════════════════════════════════════════════════════════
+           LOGIN PAGE
+           ═══════════════════════════════════════════════════════════ */
+        
+        #login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: radial-gradient(ellipse 80% 60% at 20% 50%, rgba(56, 189, 248, 0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 20%, rgba(232, 197, 106, 0.08) 0%, transparent 60%), var(--navy);
+            position: relative;
+        }
+        /* Decorative grid lines */
+        
+        #login-page::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(30, 42, 69, 0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 42, 69, 0.6) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+        
+        .login-wrap {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg), var(--gold-glow);
+            position: relative;
+            z-index: 1;
+            animation: loginReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        
+        @keyframes loginReveal {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        /* Left brand panel */
+        
+        .login-brand {
+            padding: 60px 52px;
+            background: radial-gradient(ellipse 120% 80% at 30% 20%, rgba(232, 197, 106, 0.12) 0%, transparent 60%), linear-gradient(145deg, #0f1a35 0%, #0a0f1e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-right: 1px solid var(--navy-border);
+        }
+        
+        .login-brand::before {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            right: -80px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 1px solid rgba(232, 197, 106, 0.08);
+        }
+        
+        .login-brand::after {
+            content: '';
+            position: absolute;
+            bottom: -120px;
+            right: -120px;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            border: 1px solid rgba(232, 197, 106, 0.05);
+        }
+        
+        .brand-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(232, 197, 106, 0.3);
+        }
+        
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--text-1);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        
+        .brand-name span {
+            color: var(--gold);
+        }
+        
+        .brand-tagline {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: var(--text-3);
+            text-transform: uppercase;
+            margin-bottom: 36px;
+        }
+        
+        .brand-desc {
+            font-size: 0.95rem;
+            color: var(--text-2);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+        
+        .brand-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .brand-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.88rem;
+            color: var(--text-2);
+        }
+        
+        .brand-feature i {
+            width: 28px;
+            height: 28px;
+            background: rgba(232, 197, 106, 0.1);
+            border: 1px solid rgba(232, 197, 106, 0.2);
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+        
+        .demo-box {
+            margin-top: 36px;
+            padding: 16px 20px;
+            background: rgba(56, 189, 248, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-radius: var(--radius-sm);
+        }
+        
+        .demo-box p {
+            font-size: 0.8rem;
+            color: var(--teal);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+        
+        .demo-box code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-2);
+            display: block;
+            line-height: 2;
+        }
+        /* Right form panel */
+        
+        .login-form-panel {
+            padding: 56px 52px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--navy-card);
+        }
+        
+        .login-tabs {
+            display: flex;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px;
+            border-radius: 10px;
+            margin-bottom: 36px;
+            border: 1px solid var(--navy-border);
+        }
+        
+        .login-tab {
+            flex: 1;
+            padding: 11px;
+            text-align: center;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-3);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.25s;
+            user-select: none;
+        }
+        
+        .login-tab.active {
+            background: var(--navy-mid);
+            color: var(--gold);
+            border: 1px solid var(--navy-border);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-2);
+            margin-bottom: 8px;
+        }
+        
+        .input-wrap {
+            position: relative;
+        }
+        
+        .input-wrap i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-3);
+            font-size: 0.85rem;
+            pointer-events: none;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 13px 16px 13px 42px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1.5px solid var(--navy-border);
+            border-radius: var(--radius-sm);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-1);
+            transition: all 0.2s;
+            outline: none;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--gold-dim);
+            background: rgba(0, 0, 0, 0.35);
+            box-shadow: 0 0 0 3px rgba(232, 197, 106, 0.08);
+        }
+        
+        .form-group input::placeholder {
+            color: var(--text-3);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dim) 100%);
+            color: var(--navy);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            letter-spacing: 0.02em;
+            margin-top: 8px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(232, 197, 106, 0.3);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .error-msg {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: rgba(251, 113, 133, 0.1);
+            border: 1px solid rgba(251, 113, 133, 0.2);
+            border-radius: 6px;
+            color: var(--rose);
+            font-size: 0.85rem;
+            text-align: center;
+            display: none;
+        }
+        
+        .error-msg.show {
+            display: block;
+            animation: shake 0.3s;
+        }
+        
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-6px);
+            }
+            75% {
+                transform: translateX(6px);
+            }
+        }
+        
+        .register-link {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-3);
+        }
+        
+        .register-link a {
+            color: var(--teal);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        /* ═══════════════════════════════════════════════════════════
+           DASHBOARD
+           ═══════════════════════════════════════════════════════════ */
+        
+        #dashboard-page {
+            display: none;
+        }
+        /* ─── Header ──────────────────────────────────────────────── */
+        
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 15, 30, 0.85);
+            backdrop-filter: blur(20px) saturate(1.5);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--navy-border);
+        }
+        
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+            gap: 24px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        
+        .logo-mark {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--navy);
+            flex-shrink: 0;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+        
+        .logo-text strong {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-1);
+            line-height: 1;
+        }
+        
+        .logo-text span {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-3);
+            font-weight: 500;
+        }
+        
+        nav {
+            display: flex;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            font-size: 0.87rem;
+            font-weight: 500;
+            color: var(--text-2);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        
+        .nav-link i {
+            font-size: 0.8rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--text-1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .nav-link.active {
+            color: var(--gold);
+            background: rgba(232, 197, 106, 0.08);
+            font-weight: 600;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-shrink: 0;
+        }
+        
+        #welcome-message {
+            font-size: 0.85rem;
+            color: var(--text-2);
+            white-space: nowrap;
+        }
+        
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--teal), var(--teal-dim));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--navy);
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .logout-btn {
+            padding: 7px 14px;
+            background: transparent;
+            border: 1.5px solid var(--navy-border);
+            border-radius: var(--radius-sm);
+            color: var(--text-2);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.83rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .logout-btn:hover {
+            border-color: var(--rose);
+            color: var(--rose);
+        }
+        /* ─── Main ────────────────────────────────────────────────── */
+        
+        main {
+            padding: 36px 0 60px;
+            min-height: calc(100vh - 68px);
+        }
+        
+        .page-content {
+            animation: pageIn 0.3s ease both;
+        }
+        
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        /* ─── Page header ─────────────────────────────────────────── */
+        
+        .page-head {
+            margin-bottom: 32px;
+        }
+        
+        .page-head h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-1);
+            margin-bottom: 6px;
+        }
+        
+        .page-head p {
+            font-size: 0.95rem;
+            color: var(--text-2);
+        }
+        /* ─── Stat cards ──────────────────────────────────────────── */
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        
+        .stat-card {
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: cardReveal 0.5s ease both;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        @keyframes cardReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stat-icon-wrap {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .si-gold {
+            background: rgba(232, 197, 106, 0.12);
+            color: var(--gold);
+        }
+        
+        .si-teal {
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--teal);
+        }
+        
+        .si-rose {
+            background: rgba(251, 113, 133, 0.12);
+            color: var(--rose);
+        }
+        
+        .si-green {
+            background: rgba(74, 222, 128, 0.12);
+            color: var(--green);
+        }
+        
+        .si-amber {
+            background: rgba(251, 191, 36, 0.12);
+            color: var(--amber);
+        }
+        
+        .stat-body {
+            min-width: 0;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-1);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        /* ─── Dashboard grid ──────────────────────────────────────── */
+        
+        .dash-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 20px;
+        }
+        /* ─── Cards ───────────────────────────────────────────────── */
+        
+        .card {
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-1);
+        }
+        
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        /* ─── Event mini cards ────────────────────────────────────── */
+        
+        .event-mini {
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius-sm);
+            margin-bottom: 10px;
+        }
+        
+        .event-mini-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        
+        .event-mini-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-1);
+        }
+        
+        .event-mini-meta {
+            font-size: 0.78rem;
+            color: var(--text-3);
+            margin-bottom: 10px;
+        }
+        
+        .event-mini-meta i {
+            margin-right: 4px;
+        }
+        /* ─── Badges ──────────────────────────────────────────────── */
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+        
+        .badge-gold {
+            background: rgba(232, 197, 106, 0.12);
+            color: var(--gold);
+            border: 1px solid rgba(232, 197, 106, 0.2);
+        }
+        
+        .badge-teal {
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--teal);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        
+        .badge-green {
+            background: rgba(74, 222, 128, 0.12);
+            color: var(--green);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+        
+        .badge-amber {
+            background: rgba(251, 191, 36, 0.12);
+            color: var(--amber);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        
+        .badge-rose {
+            background: rgba(251, 113, 133, 0.12);
+            color: var(--rose);
+            border: 1px solid rgba(251, 113, 133, 0.2);
+        }
+        
+        .badge-dim {
+            background: rgba(100, 116, 139, 0.12);
+            color: var(--text-3);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+        }
+        /* ─── Buttons ─────────────────────────────────────────────── */
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 18px;
+            border-radius: var(--radius-sm);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            white-space: nowrap;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+            color: var(--navy);
+        }
+        
+        .btn-gold:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(232, 197, 106, 0.3);
+        }
+        
+        .btn-teal {
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--teal);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        
+        .btn-teal:hover:not(:disabled) {
+            background: rgba(56, 189, 248, 0.2);
+        }
+        
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-2);
+            border: 1.5px solid var(--navy-border);
+        }
+        
+        .btn-ghost:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-1);
+        }
+        
+        .btn-danger {
+            background: rgba(251, 113, 133, 0.1);
+            color: var(--rose);
+            border: 1px solid rgba(251, 113, 133, 0.2);
+        }
+        
+        .btn-danger:hover:not(:disabled) {
+            background: rgba(251, 113, 133, 0.2);
+        }
+        
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+        /* ─── Events full page ────────────────────────────────────── */
+        
+        .filter-bar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+        
+        .filter-chip {
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1.5px solid var(--navy-border);
+            background: transparent;
+            color: var(--text-2);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-chip.active,
+        .filter-chip:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(232, 197, 106, 0.06);
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+        
+        .event-card {
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .event-banner {
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .eb-workshop {
+            background: linear-gradient(135deg, #0f2744, #1a3a6c);
+            color: var(--teal);
+        }
+        
+        .eb-hackathon {
+            background: linear-gradient(135deg, #1a0f2e, #2d1a4a);
+            color: #a78bfa;
+        }
+        
+        .eb-seminar {
+            background: linear-gradient(135deg, #0f2818, #1a4030);
+            color: var(--green);
+        }
+        
+        .eb-competition {
+            background: linear-gradient(135deg, #2a1a0f, #4a2a10);
+            color: var(--amber);
+        }
+        
+        .eb-cultural {
+            background: linear-gradient(135deg, #2a0f1a, #4a1a2a);
+            color: var(--rose);
+        }
+        
+        .eb-other {
+            background: linear-gradient(135deg, #1a1a2e, #2d2d4a);
+            color: var(--gold);
+        }
+        
+        .event-banner .event-cat-label {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+        }
+        
+        .event-body {
+            padding: 18px 20px 20px;
+        }
+        
+        .event-body h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-1);
+            margin-bottom: 6px;
+        }
+        
+        .event-meta {
+            font-size: 0.78rem;
+            color: var(--text-3);
+            margin-bottom: 12px;
+        }
+        
+        .event-meta i {
+            margin-right: 4px;
+            color: var(--text-3);
+        }
+        
+        .event-desc {
+            font-size: 0.85rem;
+            color: var(--text-2);
+            line-height: 1.6;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .event-actions {
+            display: flex;
+            gap: 8px;
+        }
+        /* ─── Certificates page ───────────────────────────────────── */
+        
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .cert-card {
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .cert-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--teal));
+        }
+        
+        .cert-emblem {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .cert-card h3 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text-1);
+            margin-bottom: 8px;
+        }
+        
+        .cert-card p {
+            font-size: 0.8rem;
+            color: var(--text-3);
+            margin-bottom: 4px;
+        }
+        
+        .cert-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+        /* ─── Portfolio page ──────────────────────────────────────── */
+        
+        .portfolio-hero {
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius);
+            padding: 36px 40px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 36px;
+        }
+        
+        .portfolio-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--teal), var(--teal-dim));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--navy);
+            flex-shrink: 0;
+            border: 3px solid rgba(56, 189, 248, 0.3);
+        }
+        
+        .portfolio-meta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-1);
+            margin-bottom: 6px;
+        }
+        
+        .portfolio-meta p {
+            font-size: 0.9rem;
+            color: var(--text-2);
+            margin-bottom: 14px;
+        }
+        
+        .portfolio-numbers {
+            display: flex;
+            gap: 28px;
+        }
+        
+        .pn-item {
+            text-align: center;
+        }
+        
+        .pn-item strong {
+            display: block;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-1);
+        }
+        
+        .pn-item span {
+            font-size: 0.72rem;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        /* ─── Progress bars ───────────────────────────────────────── */
+        
+        .skill-bar {
+            margin-bottom: 16px;
+        }
+        
+        .skill-bar-head {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            color: var(--text-2);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        
+        .skill-bar-track {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .skill-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--teal), var(--gold));
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* ─── Analytics charts (CSS-native) ─────────────────────── */
+        
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            height: 160px;
+            padding: 0 8px;
+        }
+        
+        .bar-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
+        
+        .bar {
+            width: 100%;
+            border-radius: 4px 4px 0 0;
+            background: linear-gradient(to top, var(--teal-dim), var(--teal));
+            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .bar-label {
+            font-size: 0.7rem;
+            color: var(--text-3);
+            font-weight: 500;
+        }
+        /* ─── Tables ──────────────────────────────────────────────── */
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th {
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-3);
+            font-weight: 600;
+            border-bottom: 1px solid var(--navy-border);
+        }
+        
+        .data-table td {
+            padding: 13px 14px;
+            font-size: 0.88rem;
+            color: var(--text-2);
+            border-bottom: 1px solid rgba(30, 42, 69, 0.6);
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .data-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        /* ─── Admin verification cards ────────────────────────────── */
+        
+        .verif-card {
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-left: 3px solid var(--amber);
+            border-radius: var(--radius);
+            padding: 20px 22px;
+            margin-bottom: 14px;
+        }
+        
+        .verif-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .verif-head h3 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text-1);
+        }
+        
+        .verif-head p {
+            font-size: 0.78rem;
+            color: var(--text-3);
+            margin-top: 2px;
+        }
+        
+        .verif-student {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .mini-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--teal-dim), var(--teal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--navy);
+            flex-shrink: 0;
+        }
+        
+        .verif-student h4 {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-1);
+        }
+        
+        .verif-student p {
+            font-size: 0.75rem;
+            color: var(--text-3);
+        }
+        /* ─── Approval cards ──────────────────────────────────────── */
+        
+        .approval-card {
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-left: 3px solid var(--gold);
+            border-radius: var(--radius);
+            padding: 20px 22px;
+            margin-bottom: 14px;
+        }
+        
+        .approval-card h3 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text-1);
+            margin-bottom: 10px;
+        }
+        
+        .approval-card p {
+            font-size: 0.83rem;
+            color: var(--text-2);
+            margin-bottom: 4px;
+        }
+        /* ─── Performance metrics ─────────────────────────────────── */
+        
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+        
+        .metric-card {
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .metric-val {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--text-1);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+        
+        .metric-lbl {
+            font-size: 0.78rem;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        /* ─── Quick actions ───────────────────────────────────────── */
+        
+        .action-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        /* ─── Recent activity ─────────────────────────────────────── */
+        
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--navy-border);
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .activity-body h4 {
+            font-size: 0.87rem;
+            font-weight: 600;
+            color: var(--text-1);
+            margin-bottom: 2px;
+        }
+        
+        .activity-body p {
+            font-size: 0.78rem;
+            color: var(--text-3);
+        }
+        /* ─── Footer ──────────────────────────────────────────────── */
+        
+        footer {
+            background: var(--navy-mid);
+            border-top: 1px solid var(--navy-border);
+            padding: 28px 0;
+        }
+        
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .footer-brand strong {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: var(--gold);
+        }
+        
+        .footer-brand p {
+            font-size: 0.78rem;
+            color: var(--text-3);
+            margin-top: 4px;
+        }
+        
+        .footer-team {
+            text-align: right;
+            font-size: 0.78rem;
+            color: var(--text-3);
+            line-height: 1.8;
+        }
+        /* ─── Toast notifications ─────────────────────────────────── */
+        
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 9999;
+            padding: 14px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 320px;
+            animation: toastIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .toast-success {
+            background: #064e3b;
+            color: var(--green);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+        
+        .toast-error {
+            background: #4c0519;
+            color: var(--rose);
+            border: 1px solid rgba(251, 113, 133, 0.2);
+        }
+        
+        .toast-info {
+            background: #0c2340;
+            color: var(--teal);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        /* ─── Loading state ───────────────────────────────────────── */
+        
+        .loading-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 40px;
+            color: var(--text-3);
+            font-size: 0.9rem;
+        }
+        
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--navy-border);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        /* ─── Divider ─────────────────────────────────────────────── */
+        
+        .divider {
+            height: 1px;
+            background: var(--navy-border);
+            margin: 20px 0;
+        }
+        /* ─── Register modal ──────────────────────────────────────── */
+        
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.2s;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .modal {
+            background: var(--navy-card);
+            border: 1px solid var(--navy-border);
+            border-radius: 20px;
+            padding: 36px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: var(--shadow-lg);
+            animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--text-1);
+            margin-bottom: 6px;
+        }
+        
+        .modal p {
+            font-size: 0.85rem;
+            color: var(--text-2);
+            margin-bottom: 24px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-3);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .modal-close:hover {
+            color: var(--text-1);
+        }
+        /* ─── Responsive ──────────────────────────────────────────── */
+        
+        @media (max-width: 900px) {
+            .login-wrap {
+                grid-template-columns: 1fr;
+            }
+            .login-brand {
+                display: none;
+            }
+            .portfolio-hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .portfolio-numbers {
+                justify-content: center;
+            }
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-team {
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 12px 0;
+            }
+            nav ul {
+                gap: 0;
+                flex-wrap: wrap;
+            }
+            .nav-link {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+            .dash-grid,
+            .events-grid,
+            .certs-grid {
+                grid-template-columns: 1fr;
+            }
+            #welcome-message {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     LOGIN PAGE
+     ═══════════════════════════════════════════════════════════════ -->
+    <div id="login-page">
+        <div class="login-wrap">
+
+            <!-- Brand panel -->
+            <div class="login-brand">
+                <div class="brand-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="brand-name">Campus<br><span>Connect</span></div>
+                <div class="brand-tagline">Student Events &amp; Recognition Hub</div>
+                <p class="brand-desc">
+                    Your centralized portal for campus events, certificates, and achievement tracking. Register for events, earn recognition, and build your digital portfolio.
+                </p>
+                <div class="brand-features">
+                    <div class="brand-feature"><i class="fas fa-calendar-check"></i> Event registration &amp; tracking</div>
+                    <div class="brand-feature"><i class="fas fa-certificate"></i> Digital certificate management</div>
+                    <div class="brand-feature"><i class="fas fa-chart-line"></i> Analytics &amp; engagement scores</div>
+                    <div class="brand-feature"><i class="fas fa-briefcase"></i> Auto-generated achievement portfolio</div>
+                </div>
+                <div class="demo-box">
+                    <p><i class="fas fa-terminal" style="margin-right:6px;"></i>Demo Credentials</p>
+                    <code>Admin &nbsp;&nbsp;→ admin / admin123</code>
+                    <code>Student → student / student123</code>
+                </div>
+            </div>
+
+            <!-- Form panel -->
+            <div class="login-form-panel">
+                <div style="margin-bottom:32px;">
+                    <h2 style="font-family:'Playfair Display',serif;font-size:1.7rem;margin-bottom:6px;color:var(--text-1)">Welcome back</h2>
+                    <p style="font-size:0.9rem;color:var(--text-3)">Sign in to access your dashboard</p>
+                </div>
+
+                <div class="login-tabs">
+                    <div class="login-tab active" id="admin-tab">Admin</div>
+                    <div class="login-tab" id="student-tab">Student</div>
+                </div>
+
+                <!-- Admin form -->
+                <form id="admin-login-form">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="admin-username" placeholder="admin" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="admin-password" placeholder="••••••••">
+                        </div>
+                    </div>
+                    <button type="submit" class="login-btn">Sign In as Admin</button>
+                    <div class="error-msg" id="admin-error"></div>
+                </form>
+
+                <!-- Student form -->
+                <form id="student-login-form" class="hidden">
+                    <div class="form-group">
+                        <label>Student ID / Username</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-id-card"></i>
+                            <input type="text" id="student-username" placeholder="student" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="student-password" placeholder="••••••••">
+                        </div>
+                    </div>
+                    <button type="submit" class="login-btn">Sign In as Student</button>
+                    <div class="error-msg" id="student-error"></div>
+                    <p class="register-link">New student? <a href="#" id="open-register">Create an account</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     REGISTER MODAL
+     ═══════════════════════════════════════════════════════════════ -->
+    <div id="register-modal" style="display:none;" class="modal-overlay">
+        <div class="modal" style="position:relative;">
+            <button class="modal-close" id="close-register"><i class="fas fa-times"></i></button>
+            <h2>Create Account</h2>
+            <p>Join Campus Connect as a student</p>
+            <form id="register-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="reg-name" placeholder="Your full name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-at"></i>
+                        <input type="text" id="reg-username" placeholder="Choose a username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="reg-password" placeholder="Min. 6 characters" required>
+                    </div>
+                </div>
+                <button type="submit" class="login-btn">Create Account</button>
+                <div class="error-msg" id="reg-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     DASHBOARD
+     ═══════════════════════════════════════════════════════════════ -->
+    <div id="dashboard-page">
+
+        <header>
+            <div class="container header-inner">
+                <a href="#" class="logo">
+                    <div class="logo-mark"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="logo-text">
+                        <strong>Campus Connect</strong>
+                        <span>Events &amp; Recognition Hub</span>
+                    </div>
+                </a>
+
+                <!-- Student nav -->
+                <nav id="student-nav" class="hidden">
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-page="student-home"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="student-events"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                        <li><a href="#" class="nav-link" data-page="student-certificates"><i class="fas fa-certificate"></i> Certificates</a></li>
+                        <li><a href="#" class="nav-link" data-page="student-portfolio"><i class="fas fa-briefcase"></i> Portfolio</a></li>
+                        <li><a href="#" class="nav-link" data-page="student-analytics"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Admin nav -->
+                <nav id="admin-nav" class="hidden">
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-page="admin-home"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="admin-verification"><i class="fas fa-stamp"></i> Certificates</a></li>
+                        <li><a href="#" class="nav-link" data-page="admin-approval"><i class="fas fa-check-circle"></i> Approvals</a></li>
+                        <li><a href="#" class="nav-link" data-page="admin-performance"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-right">
+                    <span id="welcome-message"></span>
+                    <div class="user-avatar" id="user-avatar">U</div>
+                    <button class="logout-btn" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+
+            <!-- ══════════════════════════════════════════════
+             STUDENT HOME
+             ══════════════════════════════════════════════ -->
+            <div id="student-home-page" class="page-content hidden">
+                <div class="page-head">
+                    <h1>Student Dashboard</h1>
+                    <p>Welcome back, <span id="student-name" style="color:var(--gold);font-weight:600;">Student</span>! Here's your activity overview.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-teal"><i class="fas fa-calendar-check"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value" id="events-attended">—</div>
+                            <div class="stat-label">Events Attended</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-gold"><i class="fas fa-certificate"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value" id="certificates-earned">—</div>
+                            <div class="stat-label">Certificates Earned</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-rose"><i class="fas fa-trophy"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value" id="engagement-points">—</div>
+                            <div class="stat-label">Engagement Points</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-green"><i class="fas fa-hourglass-half"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value" id="upcoming-events">—</div>
+                            <div class="stat-label">Upcoming Registered</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-grid">
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Upcoming Events</span>
+                            <div class="card-icon si-teal"><i class="fas fa-calendar-plus"></i></div>
+                        </div>
+                        <div id="home-events-list">
+                            <div class="loading-row">
+                                <div class="spinner"></div> Loading…</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Recent Certificates</span>
+                            <div class="card-icon si-gold"><i class="fas fa-award"></i></div>
+                        </div>
+                        <div id="home-certs-list">
+                            <div class="loading-row">
+                                <div class="spinner"></div> Loading…</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Achievement Portfolio</span>
+                            <div class="card-icon si-rose"><i class="fas fa-briefcase"></i></div>
+                        </div>
+                        <p style="font-size:0.85rem;color:var(--text-2);margin-bottom:20px;">
+                            Your digital portfolio is automatically generated with all your achievements and certifications.
+                        </p>
+                        <div class="skill-bar">
+                            <div class="skill-bar-head"><span>Technical Skills</span><span style="color:var(--teal);">85%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="width:85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar-head"><span>Leadership</span><span style="color:var(--teal);">70%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="width:70%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar-head"><span>Communication</span><span style="color:var(--teal);">78%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="width:78%"></div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:8px;margin-top:20px;">
+                            <button class="btn btn-gold" onclick="showPage('student-portfolio');"><i class="fas fa-eye"></i> View Portfolio</button>
+                            <button class="btn btn-ghost share-portfolio-btn"><i class="fas fa-share-alt"></i> Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════
+             STUDENT EVENTS
+             ══════════════════════════════════════════════ -->
+            <div id="student-events-page" class="page-content hidden">
+                <div class="page-head">
+                    <h1>All Events</h1>
+                    <p>Browse and register for upcoming events, workshops, and competitions.</p>
+                </div>
+
+                <div class="filter-bar">
+                    <button class="filter-chip active" data-filter="all">All Events</button>
+                    <button class="filter-chip" data-filter="Workshop">Workshops</button>
+                    <button class="filter-chip" data-filter="Hackathon">Hackathons</button>
+                    <button class="filter-chip" data-filter="Seminar">Seminars</button>
+                    <button class="filter-chip" data-filter="Competition">Competitions</button>
+                    <button class="filter-chip" data-filter="registered">My Registrations</button>
+                </div>
+
+                <div class="events-grid" id="events-grid">
+                    <div class="loading-row" style="grid-column:1/-1;">
+                        <div class="spinner"></div> Loading events…</div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════
+             STUDENT CERTIFICATES
+             ══════════════════════════════════════════════ -->
+            <div id="student-certificates-page" class="page-content hidden">
+                <div class="page-head">
+                    <h1>My Certificates</h1>
+                    <p>View and download all certificates earned through campus events and achievements.</p>
+                </div>
+                <div class="certs-grid" id="certs-grid">
+                    <div class="loading-row" style="grid-column:1/-1;">
+                        <div class="spinner"></div> Loading certificates…</div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════
+             STUDENT PORTFOLIO
+             ══════════════════════════════════════════════ -->
+            <div id="student-portfolio-page" class="page-content hidden">
+                <div class="portfolio-hero">
+                    <div class="portfolio-avatar" id="portfolio-avatar">JP</div>
+                    <div class="portfolio-meta">
+                        <h2 id="portfolio-name">Student Name</h2>
+                        <p>Department of Computer Applications &bull; Campus Connect Member</p>
+                        <div class="portfolio-numbers">
+                            <div class="pn-item"><strong id="port-events">—</strong><span>Events</span></div>
+                            <div class="pn-item"><strong id="port-certs">—</strong><span>Certificates</span></div>
+                            <div class="pn-item"><strong id="port-points">—</strong><span>Points</span></div>
+                        </div>
+                    </div>
+                    <div style="margin-left:auto;display:flex;flex-direction:column;gap:10px;">
+                        <button class="btn btn-gold share-portfolio-btn"><i class="fas fa-share-alt"></i> Share Portfolio</button>
+                        <button class="btn btn-ghost"><i class="fas fa-download"></i> Download PDF</button>
+                    </div>
+                </div>
+
+                <div class="dash-grid">
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Skills Assessment</span>
+                            <div class="card-icon si-teal"><i class="fas fa-chart-bar"></i></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar-head"><span>Technical Skills</span><span style="color:var(--teal);">85%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="width:85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar-head"><span>Communication</span><span style="color:var(--teal);">78%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="width:78%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar-head"><span>Leadership</span><span style="color:var(--teal);">70%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="width:70%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar-head"><span>Problem Solving</span><span style="color:var(--teal);">92%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="width:92%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Recent Achievements</span>
+                            <div class="card-icon si-gold"><i class="fas fa-trophy"></i></div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot si-gold"><i class="fas fa-certificate" style="font-size:0.7rem;"></i></div>
+                            <div class="activity-body">
+                                <h4>Python Programming Certificate</h4>
+                                <p>Issued Apr 2025 · Computer Applications</p>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot" style="background:rgba(251,191,36,0.12);color:var(--amber);"><i class="fas fa-star" style="font-size:0.7rem;"></i></div>
+                            <div class="activity-body">
+                                <h4>Best Project Award</h4>
+                                <p>Outstanding project at Hackathon 2025</p>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot" style="background:rgba(192,192,192,0.1);color:#aaa;"><i class="fas fa-medal" style="font-size:0.7rem;"></i></div>
+                            <div class="activity-body">
+                                <h4>2nd Place – Coding Competition</h4>
+                                <p>Dept. of Computer Applications · March 2025</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Portfolio Actions</span>
+                            <div class="card-icon si-rose"><i class="fas fa-share-alt"></i></div>
+                        </div>
+                        <p style="font-size:0.85rem;color:var(--text-2);margin-bottom:20px;">
+                            Share your portfolio with recruiters, download as PDF, or generate a unique link.
+                        </p>
+                        <div class="action-list">
+                            <button class="btn btn-gold share-portfolio-btn"><i class="fas fa-share-alt"></i> Share with Recruiters</button>
+                            <button class="btn btn-ghost"><i class="fas fa-download"></i> Download PDF Portfolio</button>
+                            <button class="btn btn-ghost"><i class="fas fa-link"></i> Copy Portfolio Link</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════
+             STUDENT ANALYTICS
+             ══════════════════════════════════════════════ -->
+            <div id="student-analytics-page" class="page-content hidden">
+                <div class="page-head">
+                    <h1>My Analytics</h1>
+                    <p>Track your progress, participation trends, and achievement metrics.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-teal"><i class="fas fa-chart-line"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value">85%</div>
+                            <div class="stat-label">Participation Rate</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-green"><i class="fas fa-arrow-trend-up"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value">+24%</div>
+                            <div class="stat-label">Growth This Semester</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-gold"><i class="fas fa-calendar-check"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value" id="analytics-ratio">—</div>
+                            <div class="stat-label">Events Completed</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-rose"><i class="fas fa-ranking-star"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value">#8</div>
+                            <div class="stat-label">Dept. Rank</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-grid">
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Participation by Category</span>
+                            <div class="card-icon si-teal"><i class="fas fa-chart-bar"></i></div>
+                        </div>
+                        <div class="bar-chart">
+                            <div class="bar-col">
+                                <div class="bar" style="height:75%;"></div>
+                                <div class="bar-label">Technical</div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar" style="height:50%;background:linear-gradient(to top,var(--gold-dim),var(--gold));"></div>
+                                <div class="bar-label">Cultural</div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar" style="height:90%;"></div>
+                                <div class="bar-label">Seminars</div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar" style="height:40%;background:linear-gradient(to top,#7c3aed,#a78bfa);"></div>
+                                <div class="bar-label">Hackathons</div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar" style="height:60%;background:linear-gradient(to top,var(--rose),#fda4af);"></div>
+                                <div class="bar-label">Sports</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Monthly Progress</span>
+                            <div class="card-icon si-gold"><i class="fas fa-chart-line"></i></div>
+                        </div>
+                        <div class="bar-chart">
+                            <div class="bar-col">
+                                <div class="bar" style="height:30%;background:linear-gradient(to top,var(--gold-dim),var(--gold));"></div>
+                                <div class="bar-label">Jan</div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar" style="height:55%;background:linear-gradient(to top,var(--gold-dim),var(--gold));"></div>
+                                <div class="bar-label">Feb</div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar" style="height:45%;background:linear-gradient(to top,var(--gold-dim),var(--gold));"></div>
+                                <div class="bar-label">Mar</div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar" style="height:80%;background:linear-gradient(to top,var(--gold-dim),var(--gold));"></div>
+                                <div class="bar-label">Apr</div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar" style="height:70%;background:linear-gradient(to top,var(--gold-dim),var(--gold));"></div>
+                                <div class="bar-label">May</div>
+                            </div>
+                            <div class="bar-col">
+                                <div class="bar" style="height:95%;background:linear-gradient(to top,var(--gold-dim),var(--gold));"></div>
+                                <div class="bar-label">Jun</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════
+             ADMIN HOME
+             ══════════════════════════════════════════════ -->
+            <div id="admin-home-page" class="page-content hidden">
+                <div class="page-head">
+                    <h1>Admin Dashboard</h1>
+                    <p>Manage events, registrations, certificates and system analytics.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-teal"><i class="fas fa-users"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value" id="total-students">—</div>
+                            <div class="stat-label">Total Students</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-gold"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value" id="active-events">—</div>
+                            <div class="stat-label">Active Events</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-green"><i class="fas fa-certificate"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value" id="certificates-issued">—</div>
+                            <div class="stat-label">Certificates Issued</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrap si-amber"><i class="fas fa-clock"></i></div>
+                        <div class="stat-body">
+                            <div class="stat-value" id="pending-approvals">—</div>
+                            <div class="stat-label">Pending Approvals</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-grid">
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Pending Actions</span>
+                            <div class="card-icon si-amber"><i class="fas fa-tasks"></i></div>
+                        </div>
+                        <div class="event-mini">
+                            <div class="event-mini-head">
+                                <span class="event-mini-title">Certificate Verification</span>
+                                <span class="badge badge-amber">Pending</span>
+                            </div>
+                            <div class="event-mini-meta">Certificates require admin approval</div>
+                            <button class="btn btn-teal btn-sm" onclick="showPage('admin-verification');loadAdminCertificates();"><i class="fas fa-stamp"></i> Verify Now</button>
+                        </div>
+                        <div class="event-mini">
+                            <div class="event-mini-head">
+                                <span class="event-mini-title">Event Approvals</span>
+                                <span class="badge badge-gold">Review</span>
+                            </div>
+                            <div class="event-mini-meta">Events awaiting admin approval</div>
+                            <button class="btn btn-teal btn-sm" onclick="showPage('admin-approval');loadPendingEvents();"><i class="fas fa-check-circle"></i> Review Events</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Quick Actions</span>
+                            <div class="card-icon si-teal"><i class="fas fa-bolt"></i></div>
+                        </div>
+                        <div class="action-list" style="margin-top:4px;">
+                            <button class="btn btn-gold create-event-btn"><i class="fas fa-plus-circle"></i> Create New Event</button>
+                            <button class="btn btn-ghost" onclick="showPage('admin-verification');loadAdminCertificates();"><i class="fas fa-certificate"></i> Manage Certificates</button>
+                            <button class="btn btn-ghost" onclick="showPage('admin-performance');"><i class="fas fa-download"></i> Generate Reports</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Recent Activity</span>
+                            <div class="card-icon si-green"><i class="fas fa-history"></i></div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot si-green"><i class="fas fa-check" style="font-size:0.7rem;"></i></div>
+                            <div class="activity-body">
+                                <h4>Certificates Approved</h4>
+                                <p>15 certificates for Web Dev Workshop</p>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot si-gold"><i class="fas fa-calendar-plus" style="font-size:0.7rem;"></i></div>
+                            <div class="activity-body">
+                                <h4>New Event Created</h4>
+                                <p>"AI Seminar" created and approved</p>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-dot si-teal"><i class="fas fa-user-check" style="font-size:0.7rem;"></i></div>
+                            <div class="activity-body">
+                                <h4>Students Registered</h4>
+                                <p>25 new registrations for Hackathon</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════
+             ADMIN CERTIFICATE VERIFICATION
+             ══════════════════════════════════════════════ -->
+            <div id="admin-verification-page" class="page-content hidden">
+                <div class="page-head">
+                    <h1>Certificate Verification</h1>
+                    <p>Approve or reject certificate requests submitted by students.</p>
+                </div>
+                <div id="admin-certs-list">
+                    <div class="loading-row">
+                        <div class="spinner"></div> Loading requests…</div>
+                </div>
+
+                <div class="card" style="margin-top:28px;">
+                    <div class="card-head">
+                        <span class="card-title">Verification Statistics</span>
+                        <div class="card-icon si-teal"><i class="fas fa-chart-pie"></i></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-around;padding:12px 0;">
+                        <div style="text-align:center;">
+                            <div class="metric-val" style="color:var(--amber);" id="stat-pending-certs">—</div>
+                            <div class="metric-lbl">Pending</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div class="metric-val" style="color:var(--green);" id="stat-approved-certs">—</div>
+                            <div class="metric-lbl">Approved</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div class="metric-val" style="color:var(--rose);" id="stat-rejected-certs">—</div>
+                            <div class="metric-lbl">Rejected</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════
+             ADMIN EVENT APPROVAL
+             ══════════════════════════════════════════════ -->
+            <div id="admin-approval-page" class="page-content hidden">
+                <div class="page-head">
+                    <h1>Event Approvals</h1>
+                    <p>Review and approve events submitted by faculty and students.</p>
+                </div>
+                <div id="pending-events-list">
+                    <div class="loading-row">
+                        <div class="spinner"></div> Loading events…</div>
+                </div>
+
+                <div class="card" style="margin-top:28px;">
+                    <div class="card-head">
+                        <span class="card-title">Approval Statistics</span>
+                        <div class="card-icon si-gold"><i class="fas fa-chart-bar"></i></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-around;padding:12px 0;">
+                        <div style="text-align:center;">
+                            <div class="metric-val" style="color:var(--amber);">5</div>
+                            <div class="metric-lbl">Pending Approval</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div class="metric-val" style="color:var(--green);">12</div>
+                            <div class="metric-lbl">Approved This Month</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div class="metric-val" style="color:var(--teal);">8</div>
+                            <div class="metric-lbl">Upcoming Events</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════════
+             ADMIN PERFORMANCE ANALYTICS
+             ══════════════════════════════════════════════ -->
+            <div id="admin-performance-page" class="page-content hidden">
+                <div class="page-head">
+                    <h1>Performance Analytics</h1>
+                    <p>Track student performance, event participation, and system-wide analytics.</p>
+                </div>
+
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="metric-val" style="color:var(--teal);">89%</div>
+                        <div class="metric-lbl">Participation Rate</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-val" id="perf-students">—</div>
+                        <div class="metric-lbl">Active Students</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-val" id="perf-events">—</div>
+                        <div class="metric-lbl">Active Events</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-val" id="perf-certs">—</div>
+                        <div class="metric-lbl">Certificates Issued</div>
+                    </div>
+                </div>
+
+                <div class="dash-grid">
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Student Performance</span>
+                            <div class="card-icon si-teal"><i class="fas fa-user-graduate"></i></div>
+                        </div>
+                        <div id="students-table-wrap">
+                            <div class="loading-row">
+                                <div class="spinner"></div> Loading…</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Event Performance</span>
+                            <div class="card-icon si-gold"><i class="fas fa-chart-line"></i></div>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Reg.</th>
+                                    <th>Attend.</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="color:var(--text-1);font-weight:500;">Web Dev Workshop</td>
+                                    <td>124</td>
+                                    <td>112</td>
+                                    <td><span class="badge badge-green">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="color:var(--text-1);font-weight:500;">Hackathon 2025</td>
+                                    <td>89</td>
+                                    <td>82</td>
+                                    <td><span class="badge badge-green">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="color:var(--text-1);font-weight:500;">AI Seminar</td>
+                                    <td>156</td>
+                                    <td>145</td>
+                                    <td><span class="badge badge-green">Completed</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <span class="card-title">Registration &amp; Enrollment</span>
+                            <div class="card-icon si-rose"><i class="fas fa-users"></i></div>
+                        </div>
+                        <div class="skill-bar" style="margin-top:8px;">
+                            <div class="skill-bar-head"><span>Event Registration Rate</span><span style="color:var(--teal);">78%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="width:78%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar-head"><span>Certificate Completion Rate</span><span style="color:var(--teal);">92%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="width:92%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-bar-head"><span>Student Engagement</span><span style="color:var(--teal);">85%</span></div>
+                            <div class="skill-bar-track">
+                                <div class="skill-bar-fill" style="width:85%"></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-gold" style="width:100%;margin-top:20px;justify-content:center;">
+                        <i class="fas fa-download"></i> Download Analytics Report
+                    </button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer>
+            <div class="container footer-inner">
+                <div class="footer-brand">
+                    <strong>Campus Connect</strong>
+                    <p>Centralized Student Event &amp; Certificate Management Platform</p>
+                    <p style="margin-top:4px;">© 2025 Shrimath Devkunvar Nanalal Bhatt Vaishnav College for Women</p>
+                </div>
+                <div class="footer-team">
+                    <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:6px;">Project By</div>
+                    <div style="color:var(--text-1);font-weight:600;">Prita. P &amp; Janani. B</div>
+                    <div>Department of Computer Applications</div>
+                    <div>Guide: Mrs. Pavithra.R (Asst. Professor-BCA)</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT — API-integrated
+     ═══════════════════════════════════════════════════════════════ -->
+    <script>
+        const API = 'http://localhost:5500';
+        let currentUser = null;
+        let currentToken = null;
+        let allEvents = [];
+
+        /* ─── API helper ─────────────────────────────────────────────── */
+        async function apiFetch(endpoint, options = {}) {
+            const headers = {
+                'Content-Type': 'application/json'
+            };
+            if (currentToken) headers['Authorization'] = `Bearer ${currentToken}`;
+            try {
+                const res = await fetch(`${API}${endpoint}`, {...options,
+                    headers
+                });
+                return await res.json();
+            } catch (e) {
+                return {
+                    success: false,
+                    message: 'Network error. Is the backend running?'
+                };
+            }
+        }
+
+        /* ─── DOM refs ───────────────────────────────────────────────── */
+        const loginPage = document.getElementById('login-page');
+        const dashPage = document.getElementById('dashboard-page');
+        const adminTab = document.getElementById('admin-tab');
+        const studentTab = document.getElementById('student-tab');
+        const adminForm = document.getElementById('admin-login-form');
+        const studentForm = document.getElementById('student-login-form');
+        const adminErr = document.getElementById('admin-error');
+        const studentErr = document.getElementById('student-error');
+        const logoutBtn = document.getElementById('logout-btn');
+        const userAvatarEl = document.getElementById('user-avatar');
+        const welcomeEl = document.getElementById('welcome-message');
+        const studentNameEl = document.getElementById('student-name');
+        const studentNav = document.getElementById('student-nav');
+        const adminNav = document.getElementById('admin-nav');
+
+        const studentPages = {
+            'student-home': document.getElementById('student-home-page'),
+            'student-events': document.getElementById('student-events-page'),
+            'student-certificates': document.getElementById('student-certificates-page'),
+            'student-portfolio': document.getElementById('student-portfolio-page'),
+            'student-analytics': document.getElementById('student-analytics-page'),
+        };
+        const adminPages = {
+            'admin-home': document.getElementById('admin-home-page'),
+            'admin-verification': document.getElementById('admin-verification-page'),
+            'admin-approval': document.getElementById('admin-approval-page'),
+            'admin-performance': document.getElementById('admin-performance-page'),
+        };
+
+        /* ─── Tab switching ──────────────────────────────────────────── */
+        adminTab.addEventListener('click', () => {
+            adminTab.classList.add('active');
+            studentTab.classList.remove('active');
+            adminForm.classList.remove('hidden');
+            studentForm.classList.add('hidden');
+            clearErrors();
+        });
+        studentTab.addEventListener('click', () => {
+            studentTab.classList.add('active');
+            adminTab.classList.remove('active');
+            studentForm.classList.remove('hidden');
+            adminForm.classList.add('hidden');
+            clearErrors();
+        });
+
+        function clearErrors() {
+            [adminErr, studentErr].forEach(el => {
+                el.textContent = '';
+                el.classList.remove('show');
+            });
+        }
+
+        /* ─── Login ──────────────────────────────────────────────────── */
+        async function handleLogin(username, password, errEl) {
+            errEl.textContent = 'Signing in…';
+            errEl.classList.add('show');
+            const data = await apiFetch('/auth/login', {
+                method: 'POST',
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            });
+            if (!data.success) {
+                errEl.textContent = data.message || 'Login failed.';
+                return;
+            }
+            errEl.classList.remove('show');
+            currentUser = data.user;
+            currentToken = data.token;
+            localStorage.setItem('cc_token', currentToken);
+            localStorage.setItem('cc_user', JSON.stringify(currentUser));
+            afterLogin();
+        }
+
+        adminForm.addEventListener('submit', e => {
+            e.preventDefault();
+            handleLogin(document.getElementById('admin-username').value, document.getElementById('admin-password').value, adminErr);
+        });
+        studentForm.addEventListener('submit', e => {
+            e.preventDefault();
+            handleLogin(document.getElementById('student-username').value, document.getElementById('student-password').value, studentErr);
+        });
+
+        function afterLogin() {
+            loginPage.style.display = 'none';
+            dashPage.style.display = 'block';
+            const initials = currentUser.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+            userAvatarEl.textContent = initials;
+            welcomeEl.textContent = `Welcome, ${currentUser.name.split(' ')[0]}`;
+
+            if (currentUser.role === 'admin') {
+                adminNav.classList.remove('hidden');
+                studentNav.classList.add('hidden');
+                showPage('admin-home');
+                loadAdminDashboard();
+            } else {
+                studentNav.classList.remove('hidden');
+                adminNav.classList.add('hidden');
+                if (studentNameEl) studentNameEl.textContent = currentUser.name.split(' ')[0];
+                // portfolio avatar
+                document.getElementById('portfolio-avatar').textContent = userAvatarEl.textContent;
+                document.getElementById('portfolio-name').textContent = currentUser.name;
+                showPage('student-home');
+                loadStudentDashboard();
+            }
+            adminForm.reset();
+            studentForm.reset();
+        }
+
+        /* ─── Auto-restore session ───────────────────────────────────── */
+        window.addEventListener('load', () => {
+            const t = localStorage.getItem('cc_token');
+            const u = localStorage.getItem('cc_user');
+            if (t && u) {
+                currentToken = t;
+                currentUser = JSON.parse(u);
+                afterLogin();
+            }
+        });
+
+        /* ─── Logout ─────────────────────────────────────────────────── */
+        logoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            currentToken = null;
+            localStorage.removeItem('cc_token');
+            localStorage.removeItem('cc_user');
+            dashPage.style.display = 'none';
+            loginPage.style.display = 'flex';
+            adminTab.classList.add('active');
+            studentTab.classList.remove('active');
+            adminForm.classList.remove('hidden');
+            studentForm.classList.add('hidden');
+        });
+
+        /* ─── Register modal ─────────────────────────────────────────── */
+        const regModal = document.getElementById('register-modal');
+        const regForm = document.getElementById('register-form');
+        const regErr = document.getElementById('reg-error');
+
+        document.getElementById('open-register').addEventListener('click', e => {
+            e.preventDefault();
+            regModal.style.display = 'flex';
+        });
+        document.getElementById('close-register').addEventListener('click', () => {
+            regModal.style.display = 'none';
+        });
+        regModal.addEventListener('click', e => {
+            if (e.target === regModal) regModal.style.display = 'none';
+        });
+
+        regForm.addEventListener('submit', async e => {
+            e.preventDefault();
+            regErr.textContent = 'Creating account…';
+            regErr.classList.add('show');
+            const data = await apiFetch('/auth/register', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: document.getElementById('reg-name').value,
+                    username: document.getElementById('reg-username').value,
+                    password: document.getElementById('reg-password').value
+                })
+            });
+            if (!data.success) {
+                regErr.textContent = data.message;
+                return;
+            }
+            regModal.style.display = 'none';
+            regForm.reset();
+            regErr.classList.remove('show');
+            showToast('Account created! You can now log in.', 'success');
+        });
+
+        /* ─── Navigation ─────────────────────────────────────────────── */
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                showPage(page);
+                if (page === 'student-events') loadAllEvents();
+                if (page === 'student-certificates') loadUserCertificates();
+                if (page === 'student-portfolio') loadPortfolioStats();
+                if (page === 'student-analytics') loadAnalyticsStats();
+                if (page === 'admin-verification') loadAdminCertificates();
+                if (page === 'admin-approval') loadPendingEvents();
+                if (page === 'admin-performance') loadAdminPerformance();
+            });
+        });
+
+        function showPage(page) {
+            [...Object.values(studentPages), ...Object.values(adminPages)].forEach(p => p && p.classList.add('hidden'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const target = studentPages[page] || adminPages[page];
+            if (target) {
+                target.classList.remove('hidden');
+                const link = document.querySelector(`[data-page="${page}"]`);
+                if (link) link.classList.add('active');
+            }
+        }
+
+        /* ─── Student Dashboard ──────────────────────────────────────── */
+        async function loadStudentDashboard() {
+            const data = await apiFetch('/user/stats');
+            if (data.success) {
+                const s = data.stats;
+                document.getElementById('events-attended').textContent = s.events_attended;
+                document.getElementById('certificates-earned').textContent = s.certificates_earned;
+                document.getElementById('engagement-points').textContent = s.engagement_points;
+                document.getElementById('upcoming-events').textContent = s.upcoming_events;
+            }
+            // Home upcoming events
+            const evData = await apiFetch('/events');
+            if (evData.success) {
+                allEvents = evData.events;
+                const listEl = document.getElementById('home-events-list');
+                const upcoming = evData.events.filter(e => new Date(e.date) >= new Date()).slice(0, 3);
+                if (upcoming.length === 0) {
+                    listEl.innerHTML = '<p style="color:var(--text-3);font-size:0.85rem;padding:8px 0;">No upcoming events.</p>';
+                } else {
+                    listEl.innerHTML = '';
+                    upcoming.forEach(ev => listEl.appendChild(buildMiniEventCard(ev)));
+                }
+            }
+            // Home certs
+            const cData = await apiFetch('/user/certificates');
+            if (cData.success) {
+                const listEl = document.getElementById('home-certs-list');
+                if (cData.certificates.length === 0) {
+                    listEl.innerHTML = '<p style="color:var(--text-3);font-size:0.85rem;padding:8px 0;">No certificates yet.</p>';
+                } else {
+                    listEl.innerHTML = '';
+                    cData.certificates.slice(0, 3).forEach(cert => {
+                        const el = document.createElement('div');
+                        el.className = 'activity-item';
+                        el.innerHTML = `
+                    <div class="activity-dot si-gold"><i class="fas fa-certificate" style="font-size:0.7rem;"></i></div>
+                    <div class="activity-body">
+                        <h4>${cert.event_title}</h4>
+                        <p>${cert.issue_date ? fmtDate(cert.issue_date) : 'Pending'} · ${cert.category}</p>
+                    </div>`;
+                        listEl.appendChild(el);
+                    });
+                }
+            }
+        }
+
+        /* ─── All Events (student) ───────────────────────────────────── */
+        async function loadAllEvents() {
+            const grid = document.getElementById('events-grid');
+            grid.innerHTML = '<div class="loading-row" style="grid-column:1/-1;"><div class="spinner"></div> Loading events…</div>';
+            const data = await apiFetch('/events');
+            if (!data.success) {
+                grid.innerHTML = `<div class="loading-row">${data.message}</div>`;
+                return;
+            }
+            allEvents = data.events;
+            renderEventsGrid(allEvents, 'all');
+        }
+
+        function renderEventsGrid(events, filter) {
+            const grid = document.getElementById('events-grid');
+            let filtered = events;
+            if (filter === 'registered') {
+                filtered = events.filter(e => e.my_registration_status);
+            } else if (filter !== 'all') {
+                filtered = events.filter(e => e.category === filter);
+            }
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="loading-row" style="grid-column:1/-1;color:var(--text-3);">No events found.</div>';
+                return;
+            }
+            grid.innerHTML = '';
+            filtered.forEach(ev => grid.appendChild(buildEventCard(ev)));
+        }
+
+        function bannerClass(cat) {
+            const m = {
+                Workshop: 'eb-workshop',
+                Hackathon: 'eb-hackathon',
+                Seminar: 'eb-seminar',
+                Competition: 'eb-competition',
+                Cultural: 'eb-cultural'
+            };
+            return m[cat] || 'eb-other';
+        }
+
+        function bannerIcon(cat) {
+            const m = {
+                Workshop: 'fa-laptop-code',
+                Hackathon: 'fa-robot',
+                Seminar: 'fa-graduation-cap',
+                Competition: 'fa-trophy',
+                Cultural: 'fa-music'
+            };
+            return m[cat] || 'fa-calendar-star';
+        }
+
+        function buildEventCard(ev) {
+            const isReg = ev.my_registration_status === 'registered' || ev.my_registration_status === 'attended';
+            const card = document.createElement('div');
+            card.className = 'event-card';
+            card.innerHTML = `
+        <div class="event-banner ${bannerClass(ev.category)}">
+            <span class="event-cat-label badge badge-dim">${ev.category}</span>
+            <i class="fas ${bannerIcon(ev.category)}"></i>
+        </div>
+        <div class="event-body">
+            <h3>${ev.title}</h3>
+            <div class="event-meta">
+                <i class="far fa-calendar"></i> ${fmtDate(ev.date)}
+                &nbsp;&bull;&nbsp;
+                <i class="far fa-clock"></i> ${fmtTime(ev.time)}
+                &nbsp;&bull;&nbsp;
+                <i class="fas fa-users"></i> ${ev.registration_count || 0} registered
+            </div>
+            <p class="event-desc">${ev.description || 'No description provided.'}</p>
+            <div class="event-actions">
+                ${isReg
+                    ? `<span class="badge badge-green"><i class="fas fa-check"></i> Registered</span>`
+                    : `<button class="btn btn-gold btn-sm register-event-btn" data-event-id="${ev.id}" data-event="${ev.title}"><i class="fas fa-user-plus"></i> Register</button>`
+                }
+            </div>
+        </div>`;
+    return card;
+}
+
+function buildMiniEventCard(ev) {
+    const isReg = ev.my_registration_status;
+    const el = document.createElement('div');
+    el.className = 'event-mini';
+    el.innerHTML = `
+        <div class="event-mini-head">
+            <span class="event-mini-title">${ev.title}</span>
+            <span class="badge ${isReg ? 'badge-green' : 'badge-amber'}">${isReg ? 'Registered' : 'Open'}</span>
+        </div>
+        <div class="event-mini-meta"><i class="far fa-calendar"></i> ${fmtDate(ev.date)} &bull; <i class="far fa-clock"></i> ${fmtTime(ev.time)}</div>
+        ${!isReg ? `<button class="btn btn-teal btn-sm register-event-btn" data-event-id="${ev.id}" data-event="${ev.title}"><i class="fas fa-user-plus"></i> Register</button>` : ''}`;
+    return el;
+}
+
+/* ─── User Certificates ──────────────────────────────────────── */
+async function loadUserCertificates() {
+    const grid = document.getElementById('certs-grid');
+    grid.innerHTML = '<div class="loading-row" style="grid-column:1/-1;"><div class="spinner"></div> Loading…</div>';
+    const data = await apiFetch('/user/certificates');
+    if (!data.success) { grid.innerHTML = `<div class="loading-row">${data.message}</div>`; return; }
+    if (data.certificates.length === 0) {
+        grid.innerHTML = '<div class="loading-row" style="grid-column:1/-1;color:var(--text-3);">No certificates yet. Attend events to earn certificates!</div>';
+        return;
+    }
+    grid.innerHTML = '';
+    data.certificates.forEach(cert => {
+        const card = document.createElement('div');
+        card.className = 'cert-card';
+        const approved = cert.status === 'approved';
+        card.innerHTML = `
+            <div class="cert-emblem ${approved ? 'si-gold' : 'si-amber'}" style="background:${approved ? 'rgba(232,197,106,0.12)' : 'rgba(251,191,36,0.12)'};">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <h3>${cert.event_title}</h3>
+            <p>Issued: ${cert.issue_date ? fmtDate(cert.issue_date) : '—'}</p>
+            <p>Category: ${cert.category}</p>
+            <p style="margin-top:8px;">
+                <span class="badge ${approved ? 'badge-green' : cert.status === 'rejected' ? 'badge-rose' : 'badge-amber'}">
+                    ${cert.status.toUpperCase()}
+                </span>
+            </p>
+            ${approved && cert.file_url
+                ? `<div class="cert-actions">
+                     <a href="http://localhost:3000${cert.file_url}" class="btn btn-gold btn-sm" download><i class="fas fa-download"></i> Download PDF</a>
+                     <button class="btn btn-ghost btn-sm"><i class="fas fa-share"></i> Share</button>
+                   </div>`
+                : cert.status === 'pending'
+                ? `<p style="margin-top:12px;font-size:0.78rem;color:var(--amber);"><i class="fas fa-clock"></i> Awaiting admin approval</p>`
+                : ''
+            }`;
+        grid.appendChild(card);
+    });
+}
+
+/* ─── Portfolio stats ────────────────────────────────────────── */
+async function loadPortfolioStats() {
+    const data = await apiFetch('/user/stats');
+    if (!data.success) return;
+    document.getElementById('port-events').textContent  = data.stats.events_attended;
+    document.getElementById('port-certs').textContent   = data.stats.certificates_earned;
+    document.getElementById('port-points').textContent  = data.stats.engagement_points;
+}
+
+/* ─── Analytics stats ────────────────────────────────────────── */
+async function loadAnalyticsStats() {
+    const data = await apiFetch('/user/stats');
+    if (!data.success) return;
+    const el = document.getElementById('analytics-ratio');
+    if (el) el.textContent = data.stats.events_attended;
+}
+
+/* ─── Admin Dashboard ────────────────────────────────────────── */
+async function loadAdminDashboard() {
+    const data = await apiFetch('/admin/stats');
+    if (!data.success) return;
+    const s = data.stats;
+    document.getElementById('total-students').textContent    = s.total_students;
+    document.getElementById('active-events').textContent     = s.active_events;
+    document.getElementById('certificates-issued').textContent= s.certificates_issued;
+    document.getElementById('pending-approvals').textContent  = s.pending_approvals;
+}
+
+/* ─── Admin: Pending Events ──────────────────────────────────── */
+async function loadPendingEvents() {
+    const listEl = document.getElementById('pending-events-list');
+    listEl.innerHTML = '<div class="loading-row"><div class="spinner"></div> Loading…</div>';
+    const data = await apiFetch('/events');
+    if (!data.success) { listEl.innerHTML = `<div class="loading-row">${data.message}</div>`; return; }
+    const pending = data.events.filter(e => e.status === 'pending');
+    if (pending.length === 0) {
+        listEl.innerHTML = '<div class="loading-row" style="color:var(--text-3);">No pending events. All caught up!</div>';
+        return;
+    }
+    listEl.innerHTML = '';
+    pending.forEach(ev => {
+        const card = document.createElement('div');
+        card.className = 'approval-card';
+        card.innerHTML = `
+            <h3>${ev.title}</h3>
+            <p><span style="color:var(--text-3);">Category:</span> ${ev.category}</p>
+            <p><span style="color:var(--text-3);">Date:</span> ${fmtDate(ev.date)} at ${fmtTime(ev.time)}</p>
+            <p style="margin-top:8px;color:var(--text-2);font-size:0.85rem;">${ev.description || ''}</p>
+            <div class="event-actions" style="margin-top:16px;">
+                <button class="btn btn-gold approve-event-btn" data-id="${ev.id}"><i class="fas fa-check"></i> Approve</button>
+                <button class="btn btn-danger reject-event-btn" data-id="${ev.id}"><i class="fas fa-times"></i> Reject</button>
+            </div>`;
+        listEl.appendChild(card);
+    });
+}
+
+/* ─── Admin: Certificates ────────────────────────────────────── */
+async function loadAdminCertificates() {
+    const listEl = document.getElementById('admin-certs-list');
+    listEl.innerHTML = '<div class="loading-row"><div class="spinner"></div> Loading…</div>';
+    const data = await apiFetch('/admin/certificates');
+    if (!data.success) { listEl.innerHTML = `<div class="loading-row">${data.message}</div>`; return; }
+
+    // Stats
+    const pending  = data.certificates.filter(c=>c.status==='pending').length;
+    const approved = data.certificates.filter(c=>c.status==='approved').length;
+    const rejected = data.certificates.filter(c=>c.status==='rejected').length;
+    const sp = document.getElementById('stat-pending-certs');
+    const sa = document.getElementById('stat-approved-certs');
+    const sr = document.getElementById('stat-rejected-certs');
+    if(sp) sp.textContent = pending;
+    if(sa) sa.textContent = approved;
+    if(sr) sr.textContent = rejected;
+
+    if (data.certificates.length === 0) {
+        listEl.innerHTML = '<div class="loading-row" style="color:var(--text-3);">No certificate requests yet.</div>';
+        return;
+    }
+    listEl.innerHTML = '';
+    data.certificates.forEach(cert => {
+        const card = document.createElement('div');
+        card.className = 'verif-card';
+        const initials = cert.student_name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+        card.innerHTML = `
+            <div class="verif-head">
+                <div>
+                    <h3>${cert.event_title}</h3>
+                    <p>Requested: ${fmtDate(cert.issued_at)}</p>
+                </div>
+                <span class="badge ${cert.status==='approved'?'badge-green':cert.status==='rejected'?'badge-rose':'badge-amber'}">
+                    ${cert.status.charAt(0).toUpperCase()+cert.status.slice(1)}
+                </span>
+            </div>
+            <div class="verif-student">
+                <div class="mini-avatar">${initials}</div>
+                <div>
+                    <h4>${cert.student_name}</h4>
+                    <p>@${cert.username}</p>
+                </div>
+            </div>
+            ${cert.status === 'pending' ? `
+            <div class="event-actions">
+                <button class="btn btn-gold btn-sm approve-certificate-btn" data-cert-id="${cert.id}"><i class="fas fa-check"></i> Approve &amp; Generate PDF</button>
+                <button class="btn btn-danger btn-sm reject-certificate-btn" data-cert-id="${cert.id}"><i class="fas fa-times"></i> Reject</button>
+            </div>` : ''}`;
+        listEl.appendChild(card);
+    });
+}
+
+/* ─── Admin: Performance ─────────────────────────────────────── */
+async function loadAdminPerformance() {
+    const data = await apiFetch('/admin/stats');
+    if (data.success) {
+        const s = data.stats;
+        document.getElementById('perf-students').textContent = s.total_students;
+        document.getElementById('perf-events').textContent   = s.active_events;
+        document.getElementById('perf-certs').textContent    = s.certificates_issued;
+    }
+    // Students table
+    const stuData = await apiFetch('/admin/students');
+    const wrap = document.getElementById('students-table-wrap');
+    if (!stuData.success) { wrap.innerHTML = `<div class="loading-row">${stuData.message}</div>`; return; }
+    if (stuData.students.length === 0) {
+        wrap.innerHTML = '<div class="loading-row" style="color:var(--text-3);">No students found.</div>';
+        return;
+    }
+    let rows = stuData.students.slice(0,6).map((s,i) => `
+        <tr>
+            <td style="color:var(--text-1);font-weight:500;">${s.name}</td>
+            <td>${s.total_registrations}</td>
+            <td>${s.total_certificates}</td>
+            <td><span style="color:var(--gold);font-weight:700;">${s.engagement_points}</span></td>
+            <td><span class="badge badge-teal">#${i+1}</span></td>
+        </tr>`).join('');
+    wrap.innerHTML = `<table class="data-table">
+        <thead><tr><th>Student</th><th>Events</th><th>Certs</th><th>Points</th><th>Rank</th></tr></thead>
+        <tbody>${rows}</tbody>
+    </table>`;
+}
+
+/* ─── Click delegations ──────────────────────────────────────── */
+document.addEventListener('click', async e => {
+
+    // Register for event
+    const regBtn = e.target.closest('.register-event-btn');
+    if (regBtn && !regBtn.disabled) {
+        regBtn.disabled = true;
+        const orig = regBtn.innerHTML;
+        regBtn.innerHTML = '<div class="spinner" style="width:14px;height:14px;border-width:2px;"></div>';
+        const data = await apiFetch('/register-event', {
+            method: 'POST',
+            body: JSON.stringify({ event_id: regBtn.getAttribute('data-event-id') })
+        });
+        if (data.success) {
+            regBtn.outerHTML = `<span class="badge badge-green"><i class="fas fa-check"></i> Registered</span>`;
+            showToast(data.message, 'success');
+            loadStudentDashboard();
+        } else {
+            regBtn.disabled = false; regBtn.innerHTML = orig;
+            showToast(data.message, 'error');
+        }
+    }
+
+    // Filter chips
+    const chip = e.target.closest('.filter-chip');
+    if (chip) {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        renderEventsGrid(allEvents, chip.getAttribute('data-filter'));
+    }
+
+    // Share portfolio
+    if (e.target.closest('.share-portfolio-btn')) {
+        showToast('Portfolio link copied! Share it with recruiters.', 'info');
+    }
+
+    // Create event (admin)
+    if (e.target.closest('.create-event-btn')) {
+        openCreateEventModal();
+    }
+
+    // Approve event
+    const approveEvBtn = e.target.closest('.approve-event-btn');
+    if (approveEvBtn) {
+        approveEvBtn.disabled = true;
+        approveEvBtn.innerHTML = '<div class="spinner" style="width:14px;height:14px;border-width:2px;"></div>';
+        const data = await apiFetch(`/events/${approveEvBtn.getAttribute('data-id')}`, {
+            method: 'PUT', body: JSON.stringify({ status: 'approved' })
+        });
+        showToast(data.message, data.success ? 'success' : 'error');
+        if (data.success) { loadPendingEvents(); loadAdminDashboard(); }
+    }
+
+    // Reject event
+    const rejectEvBtn = e.target.closest('.reject-event-btn');
+    if (rejectEvBtn) {
+        if (!confirm('Reject this event?')) return;
+        const data = await apiFetch(`/events/${rejectEvBtn.getAttribute('data-id')}`, {
+            method: 'PUT', body: JSON.stringify({ status: 'rejected' })
+        });
+        showToast(data.message, data.success ? 'success' : 'error');
+        if (data.success) loadPendingEvents();
+    }
+
+    // Approve certificate
+    const appCertBtn = e.target.closest('.approve-certificate-btn');
+    if (appCertBtn && !appCertBtn.disabled) {
+        appCertBtn.disabled = true;
+        const orig = appCertBtn.innerHTML;
+        appCertBtn.innerHTML = '<div class="spinner" style="width:14px;height:14px;border-width:2px;"></div> Generating PDF…';
+        const data = await apiFetch('/certificates/approve', {
+            method: 'POST', body: JSON.stringify({ cert_id: appCertBtn.getAttribute('data-cert-id') })
+        });
+        showToast(data.message, data.success ? 'success' : 'error');
+        if (data.success) { loadAdminCertificates(); loadAdminDashboard(); }
+        else { appCertBtn.disabled=false; appCertBtn.innerHTML=orig; }
+    }
+
+    // Reject certificate
+    const rejCertBtn = e.target.closest('.reject-certificate-btn');
+    if (rejCertBtn) {
+        if (!confirm('Reject this certificate request?')) return;
+        const data = await apiFetch('/certificates/reject', {
+            method: 'POST', body: JSON.stringify({ cert_id: rejCertBtn.getAttribute('data-cert-id') })
+        });
+        showToast(data.message, data.success ? 'success' : 'error');
+        if (data.success) loadAdminCertificates();
+    }
+});
+
+/* ─── Create Event Modal (inline prompt — replace with modal if preferred) */
+async function openCreateEventModal() {
+    const title = prompt('Event Title:');
+    if (!title) return;
+    const desc  = prompt('Description (optional):') || '';
+    const date  = prompt('Date (YYYY-MM-DD):');
+    const time  = prompt('Time (HH:MM, 24hr):');
+    const cat   = prompt('Category:\nWorkshop / Hackathon / Seminar / Competition / Cultural / Other') || 'Other';
+    if (!date || !time) { showToast('Date and time are required.', 'error'); return; }
+    const data = await apiFetch('/events', {
+        method: 'POST',
+        body: JSON.stringify({ title, description: desc, date, time, category: cat })
+    });
+    showToast(data.message, data.success ? 'success' : 'error');
+    if (data.success) loadAdminDashboard();
+}
+
+/* ─── Helpers ────────────────────────────────────────────────── */
+function fmtDate(str) {
+    if (!str) return '—';
+    return new Date(str).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+function fmtTime(str) {
+    if (!str) return '—';
+    const [h, m] = str.split(':');
+    const hr = +h;
+    return `${hr % 12 || 12}:${m} ${hr >= 12 ? 'PM' : 'AM'}`;
+}
+
+function showToast(msg, type = 'success') {
+    const toast = document.createElement('div');
+    const icons = { success: 'fa-check-circle', error: 'fa-circle-xmark', info: 'fa-circle-info' };
+    toast.className = `toast toast-${type}`;
+    toast.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i> ${msg}`;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.3s';
+        setTimeout(() => toast.remove(), 300);
+    }, 3500);
+}
+
+fetch("http://localhost:5500/")
+  .then(res => res.text())
+  .then(data => console.log(data));
+
+// Init tab
+adminTab.classList.add('active');
+    </script>
+</body>
+
+</html>

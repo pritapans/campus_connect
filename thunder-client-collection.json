@@ -1,0 +1,207 @@
+{
+  "clientName": "Thunder Client",
+  "collectionName": "Campus Connect API",
+  "collectionId": "campus-connect-001",
+  "dateExported": "2025-01-01",
+  "version": "1.2",
+  "folders": [
+    { "id": "f-auth",  "name": "Auth",          "containerId": "" },
+    { "id": "f-events","name": "Events",         "containerId": "" },
+    { "id": "f-reg",   "name": "Registrations",  "containerId": "" },
+    { "id": "f-cert",  "name": "Certificates",   "containerId": "" },
+    { "id": "f-admin", "name": "Admin",           "containerId": "" }
+  ],
+  "requests": [
+    {
+      "id": "r-001", "colId": "campus-connect-001", "containerId": "f-auth",
+      "name": "Register Student",
+      "url": "{{base_url}}/auth/register", "method": "POST",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": { "type": "json", "raw": "{\n  \"name\": \"John Doe\",\n  \"username\": \"johndoe\",\n  \"email\": \"john@campus.edu\",\n  \"password\": \"test123\"\n}" }
+    },
+    {
+      "id": "r-002", "colId": "campus-connect-001", "containerId": "f-auth",
+      "name": "Login (Student)",
+      "url": "{{base_url}}/auth/login", "method": "POST",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": { "type": "json", "raw": "{\n  \"username\": \"johndoe\",\n  \"password\": \"test123\"\n}" }
+    },
+    {
+      "id": "r-003", "colId": "campus-connect-001", "containerId": "f-auth",
+      "name": "Login (Admin)",
+      "url": "{{base_url}}/auth/login", "method": "POST",
+      "headers": [{ "name": "Content-Type", "value": "application/json" }],
+      "body": { "type": "json", "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}" }
+    },
+    {
+      "id": "r-004", "colId": "campus-connect-001", "containerId": "f-auth",
+      "name": "Get My Profile",
+      "url": "{{base_url}}/auth/me", "method": "GET",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }]
+    },
+    {
+      "id": "r-005", "colId": "campus-connect-001", "containerId": "f-events",
+      "name": "Get Approved Events",
+      "url": "{{base_url}}/events", "method": "GET",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }]
+    },
+    {
+      "id": "r-006", "colId": "campus-connect-001", "containerId": "f-events",
+      "name": "Create Event (Student — pending)",
+      "url": "{{base_url}}/events", "method": "POST",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{token}}" }
+      ],
+      "body": { "type": "json", "raw": "{\n  \"title\": \"AI Workshop\",\n  \"description\": \"Intro to machine learning.\",\n  \"date\": \"2025-09-15\",\n  \"time\": \"10:00\",\n  \"category\": \"Workshop\"\n}" }
+    },
+    {
+      "id": "r-007", "colId": "campus-connect-001", "containerId": "f-events",
+      "name": "Create Event (Admin — auto-approved)",
+      "url": "{{base_url}}/events", "method": "POST",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{admin_token}}" }
+      ],
+      "body": { "type": "json", "raw": "{\n  \"title\": \"National Hackathon 2025\",\n  \"description\": \"48-hour coding competition.\",\n  \"date\": \"2025-10-01\",\n  \"time\": \"09:00\",\n  \"category\": \"Hackathon\"\n}" }
+    },
+    {
+      "id": "r-008", "colId": "campus-connect-001", "containerId": "f-events",
+      "name": "Get Pending Events (Admin)",
+      "url": "{{base_url}}/events/pending", "method": "GET",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{admin_token}}" }]
+    },
+    {
+      "id": "r-009", "colId": "campus-connect-001", "containerId": "f-events",
+      "name": "Approve Event (Admin) — edit :id",
+      "url": "{{base_url}}/events/1", "method": "PUT",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{admin_token}}" }
+      ],
+      "body": { "type": "json", "raw": "{\n  \"status\": \"approved\"\n}" }
+    },
+    {
+      "id": "r-010", "colId": "campus-connect-001", "containerId": "f-events",
+      "name": "Reject Event (Admin) — edit :id",
+      "url": "{{base_url}}/events/2", "method": "PUT",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{admin_token}}" }
+      ],
+      "body": { "type": "json", "raw": "{\n  \"status\": \"rejected\"\n}" }
+    },
+    {
+      "id": "r-011", "colId": "campus-connect-001", "containerId": "f-events",
+      "name": "Get All Events (Admin)",
+      "url": "{{base_url}}/events/all", "method": "GET",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{admin_token}}" }]
+    },
+    {
+      "id": "r-012", "colId": "campus-connect-001", "containerId": "f-events",
+      "name": "Delete Event (Admin) — edit :id",
+      "url": "{{base_url}}/events/99", "method": "DELETE",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{admin_token}}" }]
+    },
+    {
+      "id": "r-013", "colId": "campus-connect-001", "containerId": "f-reg",
+      "name": "Register for Event",
+      "url": "{{base_url}}/register-event", "method": "POST",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{token}}" }
+      ],
+      "body": { "type": "json", "raw": "{\n  \"event_id\": 1\n}" }
+    },
+    {
+      "id": "r-014", "colId": "campus-connect-001", "containerId": "f-reg",
+      "name": "My Registrations",
+      "url": "{{base_url}}/my-registrations", "method": "GET",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }]
+    },
+    {
+      "id": "r-015", "colId": "campus-connect-001", "containerId": "f-reg",
+      "name": "All Registrations (Admin)",
+      "url": "{{base_url}}/registrations/all", "method": "GET",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{admin_token}}" }]
+    },
+    {
+      "id": "r-016", "colId": "campus-connect-001", "containerId": "f-reg",
+      "name": "Cancel Registration — edit :id",
+      "url": "{{base_url}}/registrations/1", "method": "DELETE",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }]
+    },
+    {
+      "id": "r-017", "colId": "campus-connect-001", "containerId": "f-cert",
+      "name": "Request Certificate",
+      "url": "{{base_url}}/request-certificate", "method": "POST",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{token}}" }
+      ],
+      "body": { "type": "json", "raw": "{\n  \"event_id\": 1\n}" }
+    },
+    {
+      "id": "r-018", "colId": "campus-connect-001", "containerId": "f-cert",
+      "name": "My Certificates",
+      "url": "{{base_url}}/my-certificates", "method": "GET",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{token}}" }]
+    },
+    {
+      "id": "r-019", "colId": "campus-connect-001", "containerId": "f-cert",
+      "name": "All Certificates (Admin)",
+      "url": "{{base_url}}/certificates/all", "method": "GET",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{admin_token}}" }]
+    },
+    {
+      "id": "r-020", "colId": "campus-connect-001", "containerId": "f-cert",
+      "name": "Approve Certificate (Admin)",
+      "url": "{{base_url}}/certificates/approve", "method": "POST",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{admin_token}}" }
+      ],
+      "body": { "type": "json", "raw": "{\n  \"cert_id\": 1\n}" }
+    },
+    {
+      "id": "r-021", "colId": "campus-connect-001", "containerId": "f-cert",
+      "name": "Reject Certificate (Admin)",
+      "url": "{{base_url}}/certificates/reject", "method": "POST",
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        { "name": "Authorization", "value": "Bearer {{admin_token}}" }
+      ],
+      "body": { "type": "json", "raw": "{\n  \"cert_id\": 2\n}" }
+    },
+    {
+      "id": "r-022", "colId": "campus-connect-001", "containerId": "f-admin",
+      "name": "Admin Stats",
+      "url": "{{base_url}}/admin/stats", "method": "GET",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{admin_token}}" }]
+    },
+    {
+      "id": "r-023", "colId": "campus-connect-001", "containerId": "f-admin",
+      "name": "Admin Dashboard",
+      "url": "{{base_url}}/admin/dashboard", "method": "GET",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{admin_token}}" }]
+    },
+    {
+      "id": "r-024", "colId": "campus-connect-001", "containerId": "f-admin",
+      "name": "Student Leaderboard",
+      "url": "{{base_url}}/admin/students", "method": "GET",
+      "headers": [{ "name": "Authorization", "value": "Bearer {{admin_token}}" }]
+    },
+    {
+      "id": "r-025", "colId": "campus-connect-001", "containerId": "f-admin",
+      "name": "Health Check",
+      "url": "{{base_url}}/", "method": "GET"
+    }
+  ],
+  "settings": {
+    "variables": [
+      { "name": "base_url",    "value": "http://localhost:5500" },
+      { "name": "token",       "value": "PASTE_STUDENT_TOKEN_HERE" },
+      { "name": "admin_token", "value": "PASTE_ADMIN_TOKEN_HERE" }
+    ]
+  }
+}
